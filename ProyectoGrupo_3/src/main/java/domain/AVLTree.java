@@ -12,13 +12,13 @@ public class AVLTree {
     }
 
     public class Node {
-        public Proveedor proveedor;
+        public Supplier supplier;
         public Node left;
         public Node right;
         private int height;
 
-        public Node(Proveedor proveedor) {
-            this.proveedor = proveedor;
+        public Node(Supplier supplier) {
+            this.supplier = supplier;
             this.height = 1;
         }
     }
@@ -70,18 +70,18 @@ public class AVLTree {
     }
 
     // Método para insertar un proveedor en el árbol AVL
-    public void insert(Proveedor proveedor) {
-        root = insertNode(root, proveedor);
+    public void insert(Supplier supplier) {
+        root = insertNode(root, supplier);
     }
 
-    private Node insertNode(Node node, Proveedor proveedor) {
+    private Node insertNode(Node node, Supplier supplier) {
         if (node == null)
-            return new Node(proveedor);
+            return new Node(supplier);
 
-        if (proveedor.getId() < node.proveedor.getId())
-            node.left = insertNode(node.left, proveedor);
-        else if (proveedor.getId() > node.proveedor.getId())
-            node.right = insertNode(node.right, proveedor);
+        if (supplier.getId() < node.supplier.getId())
+            node.left = insertNode(node.left, supplier);
+        else if (supplier.getId() > node.supplier.getId())
+            node.right = insertNode(node.right, supplier);
         else
             return node; // No se permiten duplicados
 
@@ -92,18 +92,18 @@ public class AVLTree {
         int balance = getBalance(node);
 
         // Realizar las rotaciones si el nodo se desbalancea
-        if (balance > 1 && proveedor.getId() < node.left.proveedor.getId())
+        if (balance > 1 && supplier.getId() < node.left.supplier.getId())
             return rotateRight(node);
 
-        if (balance < -1 && proveedor.getId() > node.right.proveedor.getId())
+        if (balance < -1 && supplier.getId() > node.right.supplier.getId())
             return rotateLeft(node);
 
-        if (balance > 1 && proveedor.getId() > node.left.proveedor.getId()) {
+        if (balance > 1 && supplier.getId() > node.left.supplier.getId()) {
             node.left = rotateLeft(node.left);
             return rotateRight(node);
         }
 
-        if (balance < -1 && proveedor.getId() < node.right.proveedor.getId()) {
+        if (balance < -1 && supplier.getId() < node.right.supplier.getId()) {
             node.right = rotateRight(node.right);
             return rotateLeft(node);
         }
@@ -112,18 +112,18 @@ public class AVLTree {
     }
 
     // Método para buscar un proveedor por su ID en el árbol AVL
-    public Proveedor search(int id) {
+    public Supplier search(int id) {
         Node node = searchNode(root, id);
         if (node != null)
-            return node.proveedor;
+            return node.supplier;
         return null;
     }
 
     private Node searchNode(Node node, int id) {
-        if (node == null || node.proveedor.getId() == id)
+        if (node == null || node.supplier.getId() == id)
             return node;
 
-        if (id < node.proveedor.getId())
+        if (id < node.supplier.getId())
             return searchNode(node.left, id);
         else
             return searchNode(node.right, id);
@@ -138,9 +138,9 @@ public class AVLTree {
         if (node == null)
             return node;
 
-        if (id < node.proveedor.getId())
+        if (id < node.supplier.getId())
             node.left = deleteNode(node.left, id);
-        else if (id > node.proveedor.getId())
+        else if (id > node.supplier.getId())
             node.right = deleteNode(node.right, id);
         else {
             if (node.left == null || node.right == null) {
@@ -157,8 +157,8 @@ public class AVLTree {
                     node = temp;
             } else {
                 Node temp = minValueNode(node.right);
-                node.proveedor = temp.proveedor;
-                node.right = deleteNode(node.right, temp.proveedor.getId());
+                node.supplier = temp.supplier;
+                node.right = deleteNode(node.right, temp.supplier.getId());
             }
         }
 
@@ -197,7 +197,7 @@ public class AVLTree {
     public void update(int id, String nombre) {
         Node node = searchNode(root, id);
         if (node != null) {
-            node.proveedor.setNombre(nombre);
+            node.supplier.setName(nombre);
         }
     }
 }

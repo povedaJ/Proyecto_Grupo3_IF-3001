@@ -1,26 +1,11 @@
 package domain;
 import java.util.ArrayList;
 import java.util.List;
+import domain.Order;
 
 public class PrediccionFaltantes {
 
-    private static class Pedido {
-        private Product producto;
-        private int cantidad;
 
-        public Pedido(Product producto, int cantidad) {
-            this.producto = producto;
-            this.cantidad = cantidad;
-        }
-
-        public Product getProducto() {
-            return producto;
-        }
-
-        public int getCantidad() {
-            return cantidad;
-        }
-    }
 
     private static class Faltante {
         private Product producto;
@@ -40,12 +25,12 @@ public class PrediccionFaltantes {
         }
     }
 
-    public List<Faltante> prediccionFaltantes(List<Pedido> historialPedidos) {
+    public List<Faltante> prediccionFaltantes(List<Order> historialPedidos) {
         BSTTree bstTree = new BSTTree();
 
         // Insertar los pedidos en el BST
-        for (Pedido pedido : historialPedidos) {
-            bstTree.insert(pedido.getCantidad(), pedido.getProducto());
+        for (Order pedido : historialPedidos) {
+            bstTree.insert(pedido.getCantidad(), pedido.getId());
         }
 
         // Obtener los productos más demandados (en orden descendente)
