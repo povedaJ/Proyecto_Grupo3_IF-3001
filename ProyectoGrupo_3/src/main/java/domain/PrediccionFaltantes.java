@@ -2,6 +2,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 import domain.Order;
+import domain.OrderDetail;
 
 public class PrediccionFaltantes {
 
@@ -25,12 +26,12 @@ public class PrediccionFaltantes {
         }
     }
 
-    public List<Faltante> prediccionFaltantes(List<Order> historialPedidos) {
+    public List<Faltante> prediccionFaltantes(List<OrderDetail> historialPedidos) {
         BSTTree bstTree = new BSTTree();
 
         // Insertar los pedidos en el BST
-        for (Order pedido : historialPedidos) {
-            bstTree.insert(pedido.getCantidad(), pedido.getId());
+        for (OrderDetail orderDetail : historialPedidos) {
+            bstTree.insert(orderDetail.getQuantity(), orderDetail.getProductId());
         }
 
         // Obtener los productos más demandados (en orden descendente)
