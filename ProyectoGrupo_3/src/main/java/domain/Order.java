@@ -11,6 +11,13 @@ public class Order {
     private Double totalCost;
     private String remarks;
 
+    private int cantidad;
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+
     public Order(LocalDateTime orderDate, String orderStatus, int supplierId, Double totalCost, String remarks) {
         this.id=++autoId;
         this.orderDate = orderDate;
@@ -19,5 +26,6 @@ public class Order {
         this.totalCost = totalCost;
         this.remarks = remarks;
     }
+
 
 }
