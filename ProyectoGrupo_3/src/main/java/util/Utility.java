@@ -36,6 +36,7 @@ public class Utility {
     private static Random random;    // pseudo-random number generator
     private static long seed;        // pseudo-random number generator seed
    private static  SinglyLinkedList customerList;
+    static Product[] productsList;
 
 //    private static LinkedQueue linkedQueue;
 //    private static LinkedStack linkedStack;
@@ -161,28 +162,23 @@ public class Utility {
 
                 return p1.getId() < p2.getId() ? -1 :
                         p1.getId() > p2.getId() ? 1 : 0; //0==equal
-//
-//            case "PersonMood":
-//                Person pm1 = (Person) a; String pm2 = (String) b;
-//                return pm1.getMood().compareTo(pm2)<0? -1 :
-//                        pm1.getMood().compareTo(pm2)>0? 1 : 0;
-//            case "forArrayS":
-//                return  0;
-//            case "forClimate":
-//                Climate c1 = (Climate) a; String c2 = (String) b;
-//                if(c1.getPlace().getName().compareTo(c2)==0){return 0;}
-//                return c1.getWeather().getWeather().compareTo(c2)<0? -1 :
-//                        c1.getWeather().getWeather().compareTo(c2)>0? 1 : 0;
-//
-//            case "Climate":
-//               Climate clim1 = (Climate) a;
-//               Climate clim2 = (Climate) b;
-//                return clim1.getPlace().getName().compareTo(clim2.getPlace().getName()) < 0 ? -1 :
-//                        clim1.getWeather().getWeather().compareTo(clim2.getWeather().getWeather()) < 0 ? -1 :
-//                                clim1.getPlace().getName().compareTo(clim2.getPlace().getName()) >0 ? 1 :
-//                                        clim1.getWeather().getWeather().compareTo(clim2.getWeather().getWeather())  > 0 ? 1 :
-//                                                clim1.getPlace().getName().compareTo(clim2.getPlace().getName()) !=
-//                                                        clim1.getPlace().getName().compareTo(clim2.getPlace().getName()) ? -1 :0;
+            case "Product":
+                Product b1 = (Product) a;
+                Product b2 = (Product) b;
+                String name1 = b1.getDescription();
+                String name2 = b2.getDescription();
+                return name1.compareToIgnoreCase(name2) < 0 ? -1 :
+                        name1.compareToIgnoreCase(name2) > 0 ? 1 : 0;
+            case "Eliminar nulo":
+                Product prod1 = (Product) a;
+                String pro1 = prod1.getDescription();
+                String pro2 = (String) b;
+                return pro1==pro2? 0: 1 ;
+            case "Eliminar los nulos":
+                String produc1 = (String) a;
+                String produc2 = (String) b;
+                return produc1==produc2? 0: 1 ;
+
         }
         return 2; //Unknown
     }
@@ -195,13 +191,9 @@ public class Utility {
         if (a instanceof Security && b instanceof Security) return "Security";
         if (a instanceof Customer && b instanceof Customer) return "Customer";
         if (a instanceof CircularLinkedList && b instanceof CircularLinkedList) return "Security";
-
-        //  if (a instanceof Person && b instanceof Person) return "Person";
-        // if (a instanceof Person && b instanceof Object) return "Person";
-//        if (a instanceof Person && b instanceof String) return "PersonMood";
-//        if (a instanceof ArrayStack && b instanceof ArrayStack) return "forArrayS";
-//        if (a instanceof Climate && b instanceof String) return "forClimate";
-//        if (a instanceof Climate && b instanceof Climate) return "Climate";
+        if (a instanceof Product && b instanceof Product) return "Product";
+        if (a instanceof Product && b == null) return "Eliminar nulo";
+        if (a == null && b == null) return "Eliminar los nulos";
 
         return "Unknown"; //desconocido
     }
@@ -273,10 +265,25 @@ public class Utility {
                 e2.printStackTrace();
             }
         }
-
-
     }
 
+    public  static void llenarProductosLista(){
+        productsList= new Product[]{
+                new Product(01, "Enchufe de vinil 15 a 125v", 1395.0, 12, 20, 11),
+                new Product(02, "Extensión para exterior 3x12 awg 15m", 59950.0, 7, 12, 12),
+                new Product(03, "Plafón de policarbonato 150 w", 900.0, 3, 37, 13),
+                new Product(04, "Tubo cpvc 1/2' x6m", 12450.0, 10, 12, 14),
+                new Product(05, "Tubi emt 1 1/2' ul", 10.0, 20, 38, 15),
+                new Product(06, "Cable transparente N°18", 220.0, 25, 42, 16)
+        };
+    }
+    public static Product[] getProductosList() { //hay que editarlo porque los datos son inventados
+        return productsList;
+    }
+
+    public static void setProductsList(Product[] productsLista) {
+        productsList = productsLista;
+    }
 
 }
 
